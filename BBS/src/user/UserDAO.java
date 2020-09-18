@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
-public class userDAO {
+public class UserDAO {
 	private Connection conn;
 	private PreparedStatement pstmt;
 	private ResultSet rs;
 	
-	public userDAO() {
+	public UserDAO() {
 		try {
 			String dbURL = "jdbc:mysql://localhost:3306/BBS";
 			String dbID = "root";
@@ -25,10 +25,20 @@ public class userDAO {
 	public int login(String userID, String userPassword) {
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 		try {
-			//pstmt = conn.pr
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				if(rs.getNString(1).equals(userPassword)) {
+					return 1; //로그인 성공
+				} else {
+					return 0; //로그인 실패
+				}
+			}
+			return -1; //아이디가 없음
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return -2;
+		return -2;  //데이터베이스 오류
 	}
 }
