@@ -3,7 +3,8 @@
 <%@ page import="user.UserDAO " %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="user" class="user.User" scope="page" />
+<jsp:useBean id="user" class="user.User" scope="page" /> <!-- vo의 user클래스를 beans로 사용하겠다 -->
+<!-- scope="page"는 현재 페이지에서만 사용되도록 한다. -->
 <jsp:setProperty name="user" property="userID" />
 <jsp:setProperty name="user" property="userPassword" />
 <!DOCTYPE html>
@@ -26,7 +27,7 @@
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('비밀번호가 틀립니다.')");
-			script.println("history.back()");
+			script.println("history.back()");  //이전 페이지로 다시 되돌리기~
 			script.println("</script>");
 		}
 		else if (result == -1) {
