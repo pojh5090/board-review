@@ -36,6 +36,8 @@
 				script.println("</script>");   //// 이건 데이터베이스 오류인 상황!
 			}
 			else {
+				/// 회원가입 성공!
+				session.setAttribute("userID", user.getUserID()); //--->세션을 부여해준 다음에 메인페이지로 이동!
 				PrintWriter script = response.getWriter();
 				script.println("<script>");
 				script.println("location.href = 'main.jsp'");  
